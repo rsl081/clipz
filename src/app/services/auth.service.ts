@@ -65,7 +65,9 @@ export class AuthService {
       phoneNumber: userData.phoneNumber,
     })
 
-    
+    await userCred.user.updateProfile({
+      displayName: userData.name
+    })
 
   }
 
