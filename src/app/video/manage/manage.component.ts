@@ -3,7 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import IClip from 'src/app/models/clip.model';
 import { ClipService } from 'src/app/services/clip.service';
 import { ModalService } from 'src/app/services/modal.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 
 @Component({
   selector: 'app-manage',
@@ -81,6 +81,20 @@ export class ManageComponent implements OnInit {
         this.clips.splice(index, 1)
       }
     })
+  }
+
+  async copyToClipboard($event: MouseEvent, docID: string | undefined) {
+    $event.preventDefault()
+
+    if(!docID) {
+      return
+    }
+
+    const url = `${location.origin}/clip/${docID}`
+    
+    await navigator.clipboard.writeText(url);
+
+    alert('Link Copied!')
   }
 
 }
